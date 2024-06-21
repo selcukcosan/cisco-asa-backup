@@ -1,0 +1,44 @@
+- name: PLAY 1 - XPNetworks CISCO ASA
+  hosts: "{{ asa_device }}"
+  connection: ansible.netcommon.network_cli
+  gather_facts: true
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: "{{ inventory_network_os }}"
+    ansible_become: true
+    ansible_become_method: enable
+    ansible_host: "{{ inventory_host }}"
+    ansible_user: "{{ inventory_user }}"
+    ansible_password: "{{ inventory_pass }}"
+    ansible_command_timeout: 1800
+    backup_file_name: "{{ inventory_hostname }}-{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}"
+  tasks:
+    - name: 00- Gather all legacy facts Cisco ASA
+      cisco.asa.asa_facts:
+        gather_subset: 
+          - '!config'
+        gather_network_resources:
+          - '!acls'
+          - '!ogs'          
+      register: output
+      when: ansible_network_os == 'cisco.asa.asa' and device_facts == 'true'
+    - name: 01- copy output to file Cisco ASA
+      copy: content="{{ output }}" dest=./output/{{ backup_file_name }}.facts
+      when: ansible_network_os == 'cisco.asa.asa' and device_facts == 'true' and ( inventory_network_cisco_asa_ha_type == ha_type or ha_type == 'any' ) and ( inventory_network_cisco_asa_type == asa_type or asa_type == 'any' )
+    - name: 02- show running-config if Cisco ASA on remote devices
+      cisco.asa.asa_command:
+        commands:
+          -  show running-config
+        passwords: true
+        interval: 1
+        retries: 10
+      register: output
+      when: ansible_network_os == 'cisco.asa.asa' and ( inventory_network_cisco_asa_ha_type == ha_type or ha_type == 'any' ) and ( inventory_network_cisco_asa_type == asa_type or asa_type == 'any' )
+#    - name: show output
+#      debug:
+#        var: output.stdout[0]
+    - name: 03- copy output to file Cisco ASA
+      copy: content="{{ output.stdout[0] }}" dest=./output/{{ backup_file_name }}.txt
+      when: ansible_network_os == 'cisco.asa.asa' and ( inventory_network_cisco_asa_ha_type == ha_type or ha_type == 'any' ) and ( inventory_network_cisco_asa_type == asa_type or asa_type == 'any' )      
+
+
