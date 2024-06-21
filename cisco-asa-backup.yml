@@ -1,4 +1,4 @@
-- name: PLAY 1 - XPNetworks CISCO ASA
+- name: PLAY 1 - Backup Cisco ASA
   hosts: "{{ asa_device }}"
   connection: ansible.netcommon.network_cli
   gather_facts: true
@@ -15,11 +15,11 @@
   tasks:
     - name: 00- Gather all legacy facts Cisco ASA
       cisco.asa.asa_facts:
-        gather_subset: 
+        gather_subset:
           - '!config'
         gather_network_resources:
           - '!acls'
-          - '!ogs'          
+          - '!ogs'
       register: output
       when: ansible_network_os == 'cisco.asa.asa' and device_facts == 'true'
     - name: 01- copy output to file Cisco ASA
@@ -39,6 +39,6 @@
 #        var: output.stdout[0]
     - name: 03- copy output to file Cisco ASA
       copy: content="{{ output.stdout[0] }}" dest=./output/{{ backup_file_name }}.txt
-      when: ansible_network_os == 'cisco.asa.asa' and ( inventory_network_cisco_asa_ha_type == ha_type or ha_type == 'any' ) and ( inventory_network_cisco_asa_type == asa_type or asa_type == 'any' )      
+      when: ansible_network_os == 'cisco.asa.asa' and ( inventory_network_cisco_asa_ha_type == ha_type or ha_type == 'any' ) and ( inventory_network_cisco_asa_type == asa_type or asa_type == 'any' )
 
 
