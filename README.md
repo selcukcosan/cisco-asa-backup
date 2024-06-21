@@ -1,6 +1,6 @@
 # cisco-asa-backup
 
-This Ansible script takes backup of multiple Cisco ASA devices and writes the results into output folder.
+This Ansible script takes backup of multiple Cisco ASA devices and writes the results into output folder. The script collects the Cisco ASA device facts in addition to take backup.
 
 The inventory yaml format is simple as below.
 
