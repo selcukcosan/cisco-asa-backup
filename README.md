@@ -66,3 +66,36 @@ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv --vault-password-file vau
 - `asa_type` variable is just another tag variable. You can define the firewall types as "vpn", "internal", "external" etc. If you assign "any" value, the script will take any type of "asa_type"
 - `device_facts` variable shows the gathering facts paramater. If the value is true, then Device Facts will be retrieved and is written into output folder.
 
+{
+	"ansible_facts": {
+		"ansible_network_resources": {},
+		"ansible_net_gather_network_resources": [],
+		"ansible_net_gather_subset": [
+			"default",
+			"hardware"
+		],
+		"ansible_net_system": "asa",
+		"ansible_net_image": "boot:/asa9184-24-smp-k8.bin",
+		"ansible_net_version": "9.18(4)24",
+		"ansible_net_hostname": "ciscoasa",
+		"ansible_net_device_mgr_version": "7.19(1)95",
+		"ansible_net_api": "cliconf",
+		"ansible_net_python_version": "3.10.12",
+		"ansible_net_asatype": "ASA",
+		"ansible_net_serialnum": "9A9841LNBBK",
+		"ansible_net_filesystems": [
+			"disk0:"
+		],
+		"ansible_net_filesystems_info": {
+			"disk0:": {
+				"spacetotal_kb": 8370192.0,
+				"spacefree_kb": 8203096.0
+			}
+		},
+		"ansible_net_memfree_mb": 713879,
+		"ansible_net_memused_mb": 1302664,
+		"ansible_net_memtotal_mb": 2016544
+	},
+	"failed": false,
+	"changed": false
+}
