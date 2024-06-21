@@ -1,4 +1,4 @@
-- name: PLAY 1 - Backup Cisco ASA
+- name: PLAY 1 - Backup Cisco ASA 
   hosts: "{{ asa_device }}"
   connection: ansible.netcommon.network_cli
   gather_facts: true
