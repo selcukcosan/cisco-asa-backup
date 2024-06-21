@@ -64,7 +64,7 @@ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv --vault-password-file vau
 - `asa_device` variable shows which Cisco ASA device/devices will be connected.The value can be "ciscoasa1", "ciscoasa2" or "v" as per the example inventory file above.
 - `ha_type` variable is just a tag for definition of Cisco ASA device. It can be "active", "standby", "standalone" etc. If you assign "any" value, the script will take any type of "ha_type"
 - `asa_type` variable is just another tag variable. You can define the firewall types as "vpn", "internal", "external" etc. If you assign "any" value, the script will take any type of "asa_type"
-- `device_facts` variable shows the gathering facts paramater. If the value is true, then Device Facts will be retrieved and is written into output folder.
+- `device_facts` variable shows the gathering facts paramater. If the value is true, then Device Facts will be retrieved and is written into output folder. The simple Device Facts are Version, Serial Number, Memory, Disk states etc.
 ```
 {
 	"ansible_facts": {
