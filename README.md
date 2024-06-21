@@ -100,3 +100,7 @@ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv --vault-password-file vau
 	"changed": false
 }
 ```
+
+## output Folder Example Files
+- ciscoasa1-2024-06-21-20-02-52.facts
+- ciscoasa1-2024-06-21-20-02-52.txt
